@@ -9,9 +9,11 @@ import { MovieService } from './movie.service';
     templateUrl: 'app/movies/movie-edit.component.html'
 })
 export class MovieEditComponent implements OnInit {
-    pageTitle: string = "Edit Movie";
+    pageTitle: string = 'Edit Movie';
     editForm: ControlGroup;
-    titleHasError: boolean=false;
+    formError: { [id: string]: string } ;
+    titleMessages: { [id: string]: string };
+    directorMessages: { [id: string]: string };
     movie: IMovie;
     errorMessage: string;
 
@@ -19,6 +21,23 @@ export class MovieEditComponent implements OnInit {
         private _movieService: MovieService,
         private _router: Router,
         private _routeParams: RouteParams) {
+
+        // Initialization of strings
+        this.formError = { 
+            'title': '',
+            'director': '' };
+        
+        this.titleMessages = {
+            'required': `Movie title is required`,
+            'minlength': 'Movie title must be at least three characters.',
+            'maxlength': 'Movie title cannot exceed 50 characters.'
+        };
+        
+        this.directorMessages = {
+            'required': `Director is required`,
+            'minlength': 'Director must be at least 5 characters.',
+            'maxlength': 'Director cannot exceed 50 characters.'
+        };
     }
 
     ngOnInit() {
@@ -37,21 +56,42 @@ export class MovieEditComponent implements OnInit {
         this.movie = movie;
 
         this.editForm = this._fb.group({
-            'title':[this.movie.title,
-                      Validators.compose([Validators.required, Validators.minLength(3),Validators.maxLength(50)])]
+            'title': [this.movie.title,
+                Validators.compose([Validators.required,
+                    Validators.minLength(3),
+                    Validators.maxLength(50)])],
+            'director': [this.movie.director,
+                Validators.compose([Validators.required,
+                    Validators.minLength(5),
+                    Validators.maxLength(50)])]
+
         })
-        
+
         this.editForm.valueChanges
-                .subscribe(data => this.onValueChanged(data));
+            .subscribe(data => this.onValueChanged(data));
         // this.editForm.valueChanges
         //         .debounceTime(500)
         //         .subscribe(data => this.onValueChanged(data));
     }
 
-    onValueChanged(data:any){
-        this.titleHasError = this.editForm.controls['title'].dirty && !this.editForm.controls['title'].valid;
+    onValueChanged(data: any) {
+        let titleHasError = this.editForm.controls['title'].dirty && !this.editForm.controls['title'].valid;
+        this.formError['title'] = '';
+        if (titleHasError) {
+            for (let key in this.editForm.controls['title'].errors) {
+                this.formError['title'] += this.titleMessages[key] + ' ';
+            }
+        }
+        
+        let directorHasError = this.editForm.controls['director'].dirty && !this.editForm.controls['director'].valid;
+        this.formError['director'] = '';
+        if (directorHasError) {
+            for (let key in this.editForm.controls['director'].errors) {
+                this.formError['director'] += this.directorMessages[key] + ' ';
+            }
+        }
     }
-    
+
     saveMovie() {
         if (this.editForm.dirty && this.editForm.valid) {
             alert(`Title: ${this.editForm.value.title}`);

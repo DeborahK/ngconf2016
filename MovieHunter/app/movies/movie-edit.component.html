@@ -6,7 +6,7 @@
     <div class="panel-body" *ngIf="movie">
         <form class="form-horizontal" [ngFormModel]="editForm" (submit)="saveMovie()">
             <fieldset>
-                <div class="form-group" [ngClass]="{'has-error': titleHasError }">
+                <div class="form-group" [ngClass]="{'has-error': formError['title'] }">
                     <label class="col-md-2 control-label" for="inputMovieTitle">Movie Title</label>
 
                     <div class="col-md-8">
@@ -14,41 +14,28 @@
                                 id="inputMovieTitle" 
                                 type="text" 
                                 placeholder="Title (required)" 
-                                ngControl="title"
-                                #title="ngForm" />
-                        <span class="help-block" *ngIf='title.errors'>
-                            <span *ngIf="title.errors.required">
-                                Please enter a movie title.
-                            </span>
-                        <span *ngIf="title.errors.minlength">
-                                The movie title must be at least 3 characters.
-                            </span>
-                        <span *ngIf="title.errors.maxlength">
-                                The movie title cannot exceed 50 characters.
-                            </span>
+                                ngControl="title" />
+                        <span class="help-block" *ngIf="formError['title']">
+                                {{ formError['title']}}
                         </span>
                     </div>
                 </div>
-                <!--    <form class="form-horizontal" name="movieForm" novalidate>
-
-
-                <div class="form-group" ng-class="{'has-error':movieForm.inputDirector.$invalid &&
-                                    movieForm.inputDirector.$dirty}">
-                    <label class="col-md-2 control-label" for="inputDirector">Director</label>
+                
+                <div class="form-group" [ngClass]="{'has-error': formError['director'] }">
+                    <label class="col-md-2 control-label" for="inputMovieTitle">Director</label>
 
                     <div class="col-md-8">
-                        <input class="form-control" id="inputDirector" name="inputDirector" type="text" placeholder="Director (required)" ng-model="vm.movie.director"
-                        required ng-minlength="3" ng-maxlength="50" />
+                        <input class="form-control" 
+                                id="inputMovieDirector" 
+                                type="text" 
+                                placeholder="Director (required)" 
+                                ngControl="director" />
+                        <span class="help-block" *ngIf="formError['director']">
+                                {{ formError['director']}}
+                        </span>
                     </div>
-                    <span class="help-block" ng-if="movieForm.inputDirector.$dirty">
-                        <span ng-messages="movieForm.inputDirector.$error">
-                            <span ng-message="required">Director is required</span>
-                    <span ng-message="minlength">Director must be at least 3 characters in length</span>
-                    <span ng-message="maxlength">Director cannot exceed 50 characters in length</span>
-                    </span>
-                    </span>
                 </div>
-
+                <!-- 
                 <div class="form-group" ng-class="{'has-error':movieForm.inputStarRating.$invalid &&
                                     movieForm.inputStarRating.$dirty}">
                     <label class="col-md-2 control-label" for="inputStarRating">Star Rating (1-5)</label>
