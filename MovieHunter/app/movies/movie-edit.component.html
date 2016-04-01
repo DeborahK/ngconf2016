@@ -1,0 +1,115 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        {{ pageTitle + ": " + movie?.title }}
+    </div>
+
+    <div class="panel-body">
+        <form class="form-horizontal" [ngFormModel]="editForm" (submit)="saveMovie()">
+            <fieldset>
+                <div class="form-group" [ngClass]="{'has-error': titleControl.dirty && !titleControl.valid }">
+                    <label class="col-md-2 control-label" for="inputMovieTitle">Movie Title</label>
+
+                    <div class="col-md-8">
+                        <input class="form-control" id="inputMovieTitle" type="text" placeholder="Title (required)" ngControl="title" />
+                        <span class="help-block" *ngIf="titleControl.dirty && !titleControl.valid">
+                            <span *ngIf="titleControl.errors.required">
+                                Please enter a movie title.
+                            </span>
+                        <span *ngIf="titleControl.errors.minlength">
+                                The movie title must be at least 3 characters.
+                            </span>
+                        <span *ngIf="titleControl.errors.maxlength">
+                                The movie title cannot exceed 50 characters.
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <!--    <form class="form-horizontal" name="movieForm" novalidate>
+
+
+                <div class="form-group" ng-class="{'has-error':movieForm.inputDirector.$invalid &&
+                                    movieForm.inputDirector.$dirty}">
+                    <label class="col-md-2 control-label" for="inputDirector">Director</label>
+
+                    <div class="col-md-8">
+                        <input class="form-control" id="inputDirector" name="inputDirector" type="text" placeholder="Director (required)" ng-model="vm.movie.director"
+                        required ng-minlength="3" ng-maxlength="50" />
+                    </div>
+                    <span class="help-block" ng-if="movieForm.inputDirector.$dirty">
+                        <span ng-messages="movieForm.inputDirector.$error">
+                            <span ng-message="required">Director is required</span>
+                    <span ng-message="minlength">Director must be at least 3 characters in length</span>
+                    <span ng-message="maxlength">Director cannot exceed 50 characters in length</span>
+                    </span>
+                    </span>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error':movieForm.inputStarRating.$invalid &&
+                                    movieForm.inputStarRating.$dirty}">
+                    <label class="col-md-2 control-label" for="inputStarRating">Star Rating (1-5)</label>
+
+                    <div class="col-md-8">
+                        <input class="form-control" id="inputStarRating" name="inputStarRating" placeholder="Rating (required)" type="number" ng-model="vm.movie.starRating"
+                        required min="1" max="5" />
+                    </div>
+                    <span class="help-block" ng-if="movieForm.inputStarRating.$dirty">
+                        <span ng-messages="movieForm.inputStarRating.$error">
+                            <span ng-message="required">Please enter a number between 1 and 5</span>
+                    <span ng-message="min">Please enter a number between 1 and 5</span>
+                    <span ng-message="max">Please enter a number between 1 and 5</span>
+                    </span>
+                    </span>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error':movieForm.inputDescription.$invalid &&
+                                    movieForm.inputDescription.$dirty}">
+                    <label class="col-md-2 control-label" for="inputDescription">Description</label>
+
+                    <div class="col-md-8">
+                        <textarea class="form-control" id="inputDescription" name="inputDescription" placeholder="Description" rows="3" ng-model="vm.movie.description"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-2">
+                        <span>
+                            <button class="btn btn-primary"
+                                    style="width:80px;margin-right:10px"
+                                    ng-click="vm.submit(movieForm.$valid)"
+                                    ng-disabled="movieForm.$invalid">
+                                Save
+                            </button>
+                        </span>
+                        <span>
+                            <a class="btn btn-default"
+                               ng-href="#searchByTitle"
+                               style="width:80px">
+                                Cancel
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="vm.message">
+                    <div class="col-md-6">
+                        <pre style="font: inherit">{{vm.message }}</pre>
+                    </div>
+                </div>
+            </fieldset>
+        </form>-->
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-2">
+                        <span>
+                            <button class="btn btn-primary"
+                                    type="submit"
+                                    style="width:80px;margin-right:10px">
+                                Save
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</div>
