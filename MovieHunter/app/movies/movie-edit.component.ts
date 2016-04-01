@@ -1,19 +1,19 @@
 import {Component, OnInit} from 'angular2/core';
-import { FormBuilder, ControlGroup, Control, Validators } from 'angular2/common';
+import { FormBuilder, ControlGroup, Validators } from 'angular2/common';
 import { ROUTER_DIRECTIVES, Router, RouteParams } from 'angular2/router';
 
 import { IMovie } from './movie';
 import { MovieService } from './movie.service';
 
 @Component({
-    templateUrl: 'app/movies/movie-edit.component.html'
+    templateUrl: 'app/movies/movie-edit.component.html',
+    directives: [ROUTER_DIRECTIVES]
 })
 export class MovieEditComponent implements OnInit {
     pageTitle: string = 'Edit Movie';
     editForm: ControlGroup;
     formError: { [id: string]: string } ;
-    titleMessages: { [id: string]: string };
-    directorMessages: { [id: string]: string };
+    validationMessages: {[id: string]: { [id: string]: string} };
     movie: IMovie;
     errorMessage: string;
 
@@ -25,19 +25,25 @@ export class MovieEditComponent implements OnInit {
         // Initialization of strings
         this.formError = { 
             'title': '',
-            'director': '' };
-        
-        this.titleMessages = {
-            'required': `Movie title is required`,
-            'minlength': 'Movie title must be at least three characters.',
-            'maxlength': 'Movie title cannot exceed 50 characters.'
-        };
-        
-        this.directorMessages = {
-            'required': `Director is required`,
-            'minlength': 'Director must be at least 5 characters.',
-            'maxlength': 'Director cannot exceed 50 characters.'
-        };
+            'director': '',
+            'starRating': '',
+            'description': '' };
+            
+        this.validationMessages = {
+            'title': {
+                'required': `Movie title is required`,
+                'minlength': 'Movie title must be at least three characters.',
+                'maxlength': 'Movie title cannot exceed 50 characters.'
+            },
+            'director': {
+                'required': `Director is required`,
+                'minlength': 'Director must be at least 5 characters.',
+                'maxlength': 'Director cannot exceed 50 characters.'
+            },
+            'starRating': {
+                'pattern': 'Rate the movie between 1 (lowest) and 5 (highest).'
+            }
+       }
     }
 
     ngOnInit() {
@@ -63,7 +69,10 @@ export class MovieEditComponent implements OnInit {
             'director': [this.movie.director,
                 Validators.compose([Validators.required,
                     Validators.minLength(5),
-                    Validators.maxLength(50)])]
+                    Validators.maxLength(50)])],
+            'starRating': [this.movie.starRating,
+                Validators.compose([Validators.pattern('[1-5]')])],
+            'description': [this.movie.description]
 
         })
 
@@ -75,19 +84,14 @@ export class MovieEditComponent implements OnInit {
     }
 
     onValueChanged(data: any) {
-        let titleHasError = this.editForm.controls['title'].dirty && !this.editForm.controls['title'].valid;
-        this.formError['title'] = '';
-        if (titleHasError) {
-            for (let key in this.editForm.controls['title'].errors) {
-                this.formError['title'] += this.titleMessages[key] + ' ';
-            }
-        }
-        
-        let directorHasError = this.editForm.controls['director'].dirty && !this.editForm.controls['director'].valid;
-        this.formError['director'] = '';
-        if (directorHasError) {
-            for (let key in this.editForm.controls['director'].errors) {
-                this.formError['director'] += this.directorMessages[key] + ' ';
+        for (let field in this.formError)
+        {
+            let titleHasError = this.editForm.controls[field].dirty && !this.editForm.controls[field].valid;
+            this.formError[field] = '';
+            if (titleHasError) {
+                for (let key in this.editForm.controls[field].errors) {
+                    this.formError[field] += this.validationMessages[field][key] + ' ';
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 /* Defines the movie entity */
 export interface IMovie {
     approvalRating: number;
+    description: string,
     director: string;
     imageurl: string;
     movieId: number;
