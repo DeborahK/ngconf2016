@@ -4,6 +4,7 @@ import { ROUTER_DIRECTIVES, Router, RouteParams } from 'angular2/router';
 
 import { IMovie } from './movie';
 import { MovieService } from './movie.service';
+import { NumberValidator } from '../shared/number.validator';
 
 @Component({
     templateUrl: 'app/movies/movie-edit.component.html',
@@ -13,7 +14,7 @@ export class MovieEditComponent implements OnInit {
     pageTitle: string = 'Edit Movie';
     editForm: ControlGroup;
     formError: { [id: string]: string } ;
-    validationMessages: {[id: string]: { [id: string]: string} };
+    private validationMessages: {[id: string]: { [id: string]: string} };
     movie: IMovie;
     errorMessage: string;
 
@@ -41,7 +42,7 @@ export class MovieEditComponent implements OnInit {
                 'maxlength': 'Director cannot exceed 50 characters.'
             },
             'starRating': {
-                'pattern': 'Rate the movie between 1 (lowest) and 5 (highest).'
+                'range': 'Rate the movie between 1 (lowest) and 5 (highest).'
             }
        }
     }
@@ -71,7 +72,7 @@ export class MovieEditComponent implements OnInit {
                     Validators.minLength(5),
                     Validators.maxLength(50)])],
             'starRating': [this.movie.starRating,
-                Validators.compose([Validators.pattern('[1-5]')])],
+                NumberValidator.range(1,5)],
             'description': [this.movie.description]
 
         })
@@ -86,9 +87,9 @@ export class MovieEditComponent implements OnInit {
     onValueChanged(data: any) {
         for (let field in this.formError)
         {
-            let titleHasError = this.editForm.controls[field].dirty && !this.editForm.controls[field].valid;
+            let hasError = this.editForm.controls[field].dirty && !this.editForm.controls[field].valid;
             this.formError[field] = '';
-            if (titleHasError) {
+            if (hasError) {
                 for (let key in this.editForm.controls[field].errors) {
                     this.formError[field] += this.validationMessages[field][key] + ' ';
                 }
@@ -98,7 +99,8 @@ export class MovieEditComponent implements OnInit {
 
     saveMovie() {
         if (this.editForm.dirty && this.editForm.valid) {
-            alert(`Title: ${this.editForm.value.title}`);
+            this.movie = this.editForm.value;
+            alert(`Movie: ${JSON.stringify(this.movie)}`);
         }
     }
 }

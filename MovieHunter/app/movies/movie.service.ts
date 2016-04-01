@@ -32,6 +32,22 @@ export class MovieService {
 
     private handleMap(res: any, id: number) {
         let data =<IMovie[]> res.json();
+        // Return an initialized object
+        if (id===0)
+        {
+            return {
+                "director": '',
+                "description": '',
+                "imageurl": '',
+                "movieId": 0,
+                "mpaa": '',
+                "releaseDate": '',
+                "title": '',
+                "price": null,
+                "starRating": null,
+                "approvalRating": null
+            }
+        }
         let filtered = data.filter(m => m.movieId === id);
         return <IMovie> filtered[0];
     }
