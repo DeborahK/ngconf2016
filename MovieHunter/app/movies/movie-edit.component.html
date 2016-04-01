@@ -3,22 +3,27 @@
         {{ pageTitle + ": " + movie?.title }}
     </div>
 
-    <div class="panel-body">
+    <div class="panel-body" *ngIf="movie">
         <form class="form-horizontal" [ngFormModel]="editForm" (submit)="saveMovie()">
             <fieldset>
-                <div class="form-group" [ngClass]="{'has-error': titleControl.dirty && !titleControl.valid }">
+                <div class="form-group" [ngClass]="{'has-error': titleHasError }">
                     <label class="col-md-2 control-label" for="inputMovieTitle">Movie Title</label>
 
                     <div class="col-md-8">
-                        <input class="form-control" id="inputMovieTitle" type="text" placeholder="Title (required)" ngControl="title" />
-                        <span class="help-block" *ngIf="titleControl.dirty && !titleControl.valid">
-                            <span *ngIf="titleControl.errors.required">
+                        <input class="form-control" 
+                                id="inputMovieTitle" 
+                                type="text" 
+                                placeholder="Title (required)" 
+                                ngControl="title"
+                                #title="ngForm" />
+                        <span class="help-block" *ngIf='title.errors'>
+                            <span *ngIf="title.errors.required">
                                 Please enter a movie title.
                             </span>
-                        <span *ngIf="titleControl.errors.minlength">
+                        <span *ngIf="title.errors.minlength">
                                 The movie title must be at least 3 characters.
                             </span>
-                        <span *ngIf="titleControl.errors.maxlength">
+                        <span *ngIf="title.errors.maxlength">
                                 The movie title cannot exceed 50 characters.
                             </span>
                         </span>
