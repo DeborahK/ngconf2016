@@ -6,6 +6,7 @@ import {WelcomeComponent}   from './home/welcome.component';
 import {MovieListComponent} from './movies/movie-list.component';
 import {MovieDetailComponent} from './movies/movie-detail.component';
 import {MovieEditComponent} from './movies/movie-edit.component';
+import {MovieEdit2Component} from './movies/movie-edit2.component';
 import {MovieService}       from './movies/movie.service';
 
 @Component({
