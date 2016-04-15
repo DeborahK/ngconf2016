@@ -1,10 +1,10 @@
 import {Component, OnInit}  from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
-import {IMovie} from './movie';
-import {MovieService} from './movie.service';
-import {MovieFilterPipe} from './movieFilter.pipe';
-import {StarComponent} from "../shared/star.component";
+import { IMovie } from './movie';
+import { MovieService } from './movie.service';
+import { MovieFilterPipe } from './movieFilter.pipe';
+import { StarComponent } from '../shared/star.component';
 
 @Component({
     templateUrl: 'app/movies/movie-list.component.html',
@@ -13,8 +13,8 @@ import {StarComponent} from "../shared/star.component";
     pipes: [MovieFilterPipe]
 })
 export class MovieListComponent implements OnInit {
-    pageTitle: string = "InStep Movie List";
-    listFilter: string = "";
+    pageTitle: string = 'InStep Movie List';
+    listFilter: string = '';
     showImage: boolean = false;
     movies: IMovie[];
     errorMessage: string;

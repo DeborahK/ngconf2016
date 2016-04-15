@@ -1,12 +1,12 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        {{ pageTitle + ": " + movie?.title }}
+        {{pageTitle}}
     </div>
 
-    <div class="panel-body" *ngIf="movie">
+    <div class="panel-body" *ngIf='movie'>
         <form class="form-horizontal" #editForm="ngForm"  (ngsubmit)="saveMovie()">
             <fieldset>
-                <div class="form-group" [ngClass]="{'has-error': !editForm.valid }">
+                <div class="form-group" [ngClass]="{'has-error': title.touched && !title.valid }">
                     <label class="col-md-2 control-label" for="inputMovieTitle">Movie Title</label>
 
                     <div class="col-md-8">
@@ -20,7 +20,7 @@
                                 [(ngModel)] = "movie.title"
                                 ngControl="title"
                                 #title="ngForm" />
-                        <span class="help-block" *ngIf="title.errors">
+                        <span class="help-block" *ngIf="title.touched && title.errors">
                             <span *ngIf="title.errors.required">
                                 Please enter a movie title.
                             </span>
@@ -34,39 +34,34 @@
                     </div>
                 </div>
 
-                <!--<div class="form-group" [ngClass]="{'has-error': formError['director'] }">
-                    <label class="col-md-2 control-label" for="inputDirector">Director</label>
+                <div class="form-group" [ngClass]="{'has-error': director.touched && !director.valid }">
+                    <label class="col-md-2 control-label" for="inputMovieDirector">Director</label>
 
                     <div class="col-md-8">
-                        <input class="form-control" id="inputDirector" type="text" placeholder="Director (required)" ngControl="director" />
-                        <span class="help-block" *ngIf="formError['director']">
-                                {{ formError['director']}}
+                        <input class="form-control" 
+                                id="inputMovieDirector" 
+                                type="text" 
+                                placeholder="Director (required)" 
+                                required 
+                                minlength="5" 
+                                maxlength="50"
+                                [(ngModel)] = "movie.director"
+                                ngControl="director"
+                                #director="ngForm" />
+                        <span class="help-block" *ngIf="director.touched && director.errors">
+                            <span *ngIf="director.errors.required">
+                                Please enter the director's name.
+                            </span>
+                        <span *ngIf="director.errors.minlength">
+                                The name must be at least 5 characters.
+                            </span>
+                        <span *ngIf="director.errors.maxlength">
+                                The name cannot exceed 50 characters.
+                            </span>
                         </span>
                     </div>
                 </div>
-
-                <div class="form-group" [ngClass]="{'has-error': formError['starRating'] }">
-                    <label class="col-md-2 control-label" for="inputStarRating">Star Rating (1-5)</label>
-
-                    <div class="col-md-8">
-                        <input class="form-control" id="inputStarRating" type="text" placeholder="Rating" ngControl="starRating" />
-                        <span class="help-block" *ngIf="formError['starRating']">
-                                {{ formError['starRating']}}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="form-group" [ngClass]="{'has-error': formError['description'] }">
-                    <label class="col-md-2 control-label" for="inputMovieDescription">Description</label>
-
-                    <div class="col-md-8">
-                        <input class="form-control" id="inputMovieDescription" type="text" placeholder="Description" ngControl="description" />
-                        <span class="help-block" *ngIf="formError['description']">
-                                {{ formError['description']}}
-                        </span>
-                    </div>
-                </div>-->
-
+                
                 <div class="form-group">
                     <div class="col-md-4 col-md-offset-2">
                         <span>

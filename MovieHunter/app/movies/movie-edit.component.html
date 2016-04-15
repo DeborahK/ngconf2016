@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        {{ pageTitle + ": " + movie?.title }}
+        {{pageTitle}}
     </div>
 
     <div class="panel-body" *ngIf="movie">
@@ -55,11 +55,11 @@
                     <label class="col-md-2 control-label" for="inputMovieDescription">Description</label>
 
                     <div class="col-md-8">
-                        <input class="form-control" 
+                        <textarea class="form-control" 
                                 id="inputMovieDescription" 
-                                type="text" 
-                                placeholder="Description" 
-                                ngControl="description" />
+                                placeholder="Description"
+                                rows=3
+                                ngControl="description"></textarea>
                         <span class="help-block" *ngIf="formError['description']">
                                 {{ formError['description']}}
                         </span>

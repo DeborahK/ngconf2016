@@ -1,14 +1,14 @@
-import {Component, OnInit} from 'angular2/core';
+import { Component, OnInit } from 'angular2/core';
 import { ROUTER_DIRECTIVES, Router, RouteParams } from 'angular2/router';
 
 import { IMovie } from './movie';
 import { MovieService } from './movie.service';
 
 @Component({
-    templateUrl: 'app/movies/movie-edit2.component.html',
+    templateUrl: 'app/movies/movie-edit-template.component.html',
     directives: [ROUTER_DIRECTIVES]
 })
-export class MovieEdit2Component implements OnInit {
+export class MovieEditTemplateComponent implements OnInit {
     pageTitle: string = 'Edit Movie';
     movie: IMovie;
     errorMessage: string;
@@ -16,7 +16,6 @@ export class MovieEdit2Component implements OnInit {
     constructor(private _movieService: MovieService,
         private _router: Router,
         private _routeParams: RouteParams) {
-
     }
 
     ngOnInit() {
@@ -27,8 +26,19 @@ export class MovieEdit2Component implements OnInit {
     getMovie(id: number) {
         this._movieService.getMovie(id)
             .subscribe(
-            movie => this.movie = movie,
+            movie => this.onGetMovie(movie),
             error => this.errorMessage = <any>error);
+    }
+    
+    onGetMovie(movie: IMovie) {
+        this.movie = movie;
+        if (this.movie.movieId === 0) {
+            this.pageTitle = 'Add Movie';
+        }
+        else {
+            this.pageTitle = `Edit Movie: ${this.movie.title}`;
+        }
+        
     }
 
     saveMovie() {

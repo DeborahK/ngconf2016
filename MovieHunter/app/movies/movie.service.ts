@@ -1,7 +1,8 @@
-import {Injectable}     from 'angular2/core';
-import {Http, Response} from 'angular2/http';
-import {Observable}     from 'rxjs/Observable';
-import {IMovie}         from './movie';
+import { Injectable } from 'angular2/core';
+import { Http, Response } from 'angular2/http';
+import { Observable } from 'rxjs/Observable';
+
+import { IMovie } from './movie';
 
 @Injectable()
 export class MovieService {
@@ -19,7 +20,7 @@ export class MovieService {
     getMovie(id: number) {
         return this._http.get(this._moviesUrl)
             .map(res => this.handleMap(res, id))
-            .do(data => console.log("Data" + JSON.stringify(data)))
+            .do(data => console.log('Data: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 
@@ -31,22 +32,21 @@ export class MovieService {
     }
 
     private handleMap(res: any, id: number) {
-        let data =<IMovie[]> res.json();
+        let data = <IMovie[]> res.json();
         // Return an initialized object
-        if (id===0)
-        {
+        if (id === 0) {
             return {
-                "director": '',
-                "description": '',
-                "imageurl": '',
-                "movieId": 0,
-                "mpaa": '',
-                "releaseDate": '',
-                "title": '',
-                "price": null,
-                "starRating": null,
-                "approvalRating": null
-            }
+                'approvalRating': null,
+                'description': '',
+                'director': '',
+                'imageurl': '',
+                'movieId': 0,
+                'mpaa': '',
+                'price': null,
+                'releaseDate': '',
+                'starRating': null,
+                'title': ''
+            };
         }
         let filtered = data.filter(m => m.movieId === id);
         return <IMovie> filtered[0];

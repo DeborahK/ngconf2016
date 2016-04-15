@@ -13,8 +13,8 @@ import { NumberValidator } from '../shared/number.validator';
 export class MovieEditComponent implements OnInit {
     pageTitle: string = 'Edit Movie';
     editForm: ControlGroup;
-    formError: { [id: string]: string } ;
-    private validationMessages: {[id: string]: { [id: string]: string} };
+    formError: { [id: string]: string };
+    private validationMessages: { [id: string]: { [id: string]: string } };
     movie: IMovie;
     errorMessage: string;
 
@@ -24,12 +24,13 @@ export class MovieEditComponent implements OnInit {
         private _routeParams: RouteParams) {
 
         // Initialization of strings
-        this.formError = { 
+        this.formError = {
             'title': '',
             'director': '',
             'starRating': '',
-            'description': '' };
-            
+            'description': ''
+        };
+
         this.validationMessages = {
             'title': {
                 'required': `Movie title is required`,
@@ -44,7 +45,7 @@ export class MovieEditComponent implements OnInit {
             'starRating': {
                 'range': 'Rate the movie between 1 (lowest) and 5 (highest).'
             }
-       }
+        };
     }
 
     ngOnInit() {
@@ -72,10 +73,10 @@ export class MovieEditComponent implements OnInit {
                     Validators.minLength(5),
                     Validators.maxLength(50)])],
             'starRating': [this.movie.starRating,
-                NumberValidator.range(1,5)],
+                NumberValidator.range(1, 5)],
             'description': [this.movie.description]
 
-        })
+        });
 
         this.editForm.valueChanges
             .subscribe(data => this.onValueChanged(data));
@@ -85,13 +86,17 @@ export class MovieEditComponent implements OnInit {
     }
 
     onValueChanged(data: any) {
-        for (let field in this.formError)
-        {
-            let hasError = this.editForm.controls[field].dirty && !this.editForm.controls[field].valid;
-            this.formError[field] = '';
-            if (hasError) {
-                for (let key in this.editForm.controls[field].errors) {
-                    this.formError[field] += this.validationMessages[field][key] + ' ';
+        for (let field in this.formError) {
+            if (this.formError.hasOwnProperty(field)) {
+                let hasError = this.editForm.controls[field].dirty &&
+                    !this.editForm.controls[field].valid;
+                this.formError[field] = '';
+                if (hasError) {
+                    for (let key in this.editForm.controls[field].errors) {
+                        if (this.editForm.controls[field].errors.hasOwnProperty(key)) {
+                            this.formError[field] += this.validationMessages[field][key] + ' ';
+                        }
+                    }
                 }
             }
         }

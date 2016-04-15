@@ -6,7 +6,7 @@ import {WelcomeComponent}   from './home/welcome.component';
 import {MovieListComponent} from './movies/movie-list.component';
 import {MovieDetailComponent} from './movies/movie-detail.component';
 import {MovieEditComponent} from './movies/movie-edit.component';
-import {MovieEdit2Component} from './movies/movie-edit2.component';
+import {MovieEditTemplateComponent} from './movies/movie-edit-template.component';
 import {MovieService}       from './movies/movie.service';
 
 @Component({
@@ -39,8 +39,9 @@ import {MovieService}       from './movies/movie.service';
     { path: '/welcome', name: 'Welcome', component: WelcomeComponent, useAsDefault: true },
     { path: '/movies', name: 'Movies', component: MovieListComponent },
     { path: '/movie/:id', name: 'MovieDetail', component: MovieDetailComponent },
-    { path: '/movieEdit/:id', name: 'MovieEdit', component: MovieEditComponent }
+    { path: '/movieEdit/:id', name: 'MovieEdit', component: MovieEditComponent },
+    { path: '/movieEditTemplate/:id', name: 'MovieEditTemplate', component: MovieEditTemplateComponent }
 ])
 export class AppComponent {
-    pageTitle: string = "InStep Movie Hunter";
+    pageTitle: string = 'InStep Movie Hunter';
 }

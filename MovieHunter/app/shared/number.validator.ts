@@ -1,4 +1,4 @@
-import { Control, AbstractControl } from "angular2/common";
+import { Control, AbstractControl } from 'angular2/common';
 
 interface ValidationResult {
     [key: string]: boolean;
