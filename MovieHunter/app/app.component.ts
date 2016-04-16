@@ -1,13 +1,14 @@
-import {Component}          from 'angular2/core';
-import {HTTP_PROVIDERS}     from 'angular2/http';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
+import { Component } from 'angular2/core';
+import { HTTP_PROVIDERS } from 'angular2/http';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 
-import {WelcomeComponent}   from './home/welcome.component';
-import {MovieListComponent} from './movies/movie-list.component';
-import {MovieDetailComponent} from './movies/movie-detail.component';
-import {MovieEditComponent} from './movies/movie-edit.component';
-import {MovieEditTemplateComponent} from './movies/movie-edit-template.component';
-import {MovieService}       from './movies/movie.service';
+import { WelcomeComponent } from './home/welcome.component';
+import { MovieListComponent } from './movies/movie-list.component';
+import { MovieDetailComponent } from './movies/movie-detail.component';
+import { MovieEditComponent } from './movies/movie-edit.component';
+import { MovieEditTemplateComponent } from './movies/movie-edit-template.component';
+import { MovieEditModelComponent } from './movies/movie-edit-model.component';
+import { MovieService } from './movies/movie.service';
 
 @Component({
     selector: 'mh-app',
@@ -40,7 +41,8 @@ import {MovieService}       from './movies/movie.service';
     { path: '/movies', name: 'Movies', component: MovieListComponent },
     { path: '/movie/:id', name: 'MovieDetail', component: MovieDetailComponent },
     { path: '/movieEdit/:id', name: 'MovieEdit', component: MovieEditComponent },
-    { path: '/movieEditTemplate/:id', name: 'MovieEditTemplate', component: MovieEditTemplateComponent }
+    { path: '/movieEditTemplate/:id', name: 'MovieEditTemplate', component: MovieEditTemplateComponent },
+    { path: '/movieEditModel/:id', name: 'MovieEditModel', component: MovieEditModelComponent }
 ])
 export class AppComponent {
     pageTitle: string = 'InStep Movie Hunter';

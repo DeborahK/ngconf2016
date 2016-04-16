@@ -4,58 +4,50 @@
     </div>
 
     <div class="panel-body" *ngIf='movie'>
-        <form class="form-horizontal" #editForm="ngForm"  (ngSubmit)="saveMovie(editForm)">
+        <form class="form-horizontal" [ngFormModel]="editForm" (ngSubmit)="saveMovie()">
             <fieldset>
-                <div class="form-group" [ngClass]="{'has-error': title.touched && !title.valid }">
+                <div class="form-group" [ngClass]="{'has-error': titleControl.touched && !titleControl.valid }">
                     <label class="col-md-2 control-label" for="inputMovieTitle">Movie Title</label>
 
                     <div class="col-md-8">
                         <input class="form-control" 
                                 id="inputMovieTitle" 
                                 type="text" 
-                                placeholder="Title (required)" 
-                                required 
-                                minlength="3" 
-                                maxlength="50"
+                                placeholder="Title (required)"
                                 [(ngModel)] = "movie.title"
-                                ngControl="title"
-                                #title="ngForm" />
-                        <span class="help-block" *ngIf="title.touched && title.errors">
-                            <span *ngIf="title.errors.required">
+                                ngControl="title" />
+                        <span class="help-block" *ngIf="titleControl.touched && titleControl.errors">
+                            <span *ngIf="titleControl.errors.required">
                                 Please enter a movie title.
                             </span>
-                        <span *ngIf="title.errors.minlength">
+                        <span *ngIf="titleControl.errors.minlength">
                                 The movie title must be at least 3 characters.
                             </span>
-                        <span *ngIf="title.errors.maxlength">
+                        <span *ngIf="titleControl.errors.maxlength">
                                 The movie title cannot exceed 50 characters.
                             </span>
                         </span>
                     </div>
                 </div>
 
-                <div class="form-group" [ngClass]="{'has-error': director.touched && !director.valid }">
+                <div class="form-group" [ngClass]="{'has-error': directorControl.touched && !directorControl.valid }">
                     <label class="col-md-2 control-label" for="inputMovieDirector">Director</label>
 
                     <div class="col-md-8">
                         <input class="form-control" 
                                 id="inputMovieDirector" 
                                 type="text" 
-                                placeholder="Director (required)" 
-                                required 
-                                minlength="5" 
-                                maxlength="50"
+                                placeholder="Director (required)"
                                 [(ngModel)] = "movie.director"
-                                ngControl="director"
-                                #director="ngForm" />
-                        <span class="help-block" *ngIf="director.touched && director.errors">
-                            <span *ngIf="director.errors.required">
+                                ngControl="director" />
+                        <span class="help-block" *ngIf="directorControl.touched && directorControl.errors">
+                            <span *ngIf="directorControl.errors.required">
                                 Please enter the director's name.
                             </span>
-                        <span *ngIf="director.errors.minlength">
+                        <span *ngIf="directorControl.errors.minlength">
                                 The name must be at least 5 characters.
                             </span>
-                        <span *ngIf="director.errors.maxlength">
+                        <span *ngIf="directorControl.errors.maxlength">
                                 The name cannot exceed 50 characters.
                             </span>
                         </span>

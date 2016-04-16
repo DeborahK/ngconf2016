@@ -1,6 +1,6 @@
-import {Component, OnInit} from 'angular2/core';
+import { Component, OnInit } from 'angular2/core';
 import { FormBuilder, ControlGroup, Validators } from 'angular2/common';
-import { ROUTER_DIRECTIVES, Router, RouteParams } from 'angular2/router';
+import { ROUTER_DIRECTIVES, RouteParams } from 'angular2/router';
 
 import { IMovie } from './movie';
 import { MovieService } from './movie.service';
@@ -20,7 +20,6 @@ export class MovieEditComponent implements OnInit {
 
     constructor(private _fb: FormBuilder,
         private _movieService: MovieService,
-        private _router: Router,
         private _routeParams: RouteParams) {
 
         // Initialization of strings
@@ -62,6 +61,12 @@ export class MovieEditComponent implements OnInit {
 
     onMovieRetrieved(movie: IMovie) {
         this.movie = movie;
+
+        if (this.movie.movieId === 0) {
+            this.pageTitle = 'Add Movie';
+        } else {
+            this.pageTitle = `Edit Movie: ${this.movie.title}`;
+        }
 
         this.editForm = this._fb.group({
             'title': [this.movie.title,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from 'angular2/core';
+import { ControlGroup } from 'angular2/common';
 import { ROUTER_DIRECTIVES, Router, RouteParams } from 'angular2/router';
 
 import { IMovie } from './movie';
@@ -26,25 +27,23 @@ export class MovieEditTemplateComponent implements OnInit {
     getMovie(id: number) {
         this._movieService.getMovie(id)
             .subscribe(
-            movie => this.onGetMovie(movie),
+            movie => this.onMovieRetrieved(movie),
             error => this.errorMessage = <any>error);
     }
-    
-    onGetMovie(movie: IMovie) {
+
+    onMovieRetrieved(movie: IMovie) {
         this.movie = movie;
         if (this.movie.movieId === 0) {
             this.pageTitle = 'Add Movie';
-        }
-        else {
+        } else {
             this.pageTitle = `Edit Movie: ${this.movie.title}`;
         }
-        
     }
 
-    saveMovie() {
-        // if (this.editForm.dirty && this.editForm.valid) {
-        //     this.movie = this.editForm.value;
-        //     alert(`Movie: ${JSON.stringify(this.movie)}`);
-        // }
+    saveMovie(editForm: ControlGroup) {
+        if (editForm.dirty && editForm.valid) {
+            this.movie = editForm.value;
+            alert(`Movie: ${JSON.stringify(this.movie)}`);
+        }
     }
 }
