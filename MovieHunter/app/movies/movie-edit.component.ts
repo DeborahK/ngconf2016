@@ -32,12 +32,12 @@ export class MovieEditComponent implements OnInit {
 
         this.validationMessages = {
             'title': {
-                'required': `Movie title is required`,
+                'required': 'Movie title is required',
                 'minlength': 'Movie title must be at least three characters.',
                 'maxlength': 'Movie title cannot exceed 50 characters.'
             },
             'director': {
-                'required': `Director is required`,
+                'required': 'Director is required',
                 'minlength': 'Director must be at least 5 characters.',
                 'maxlength': 'Director cannot exceed 50 characters.'
             },

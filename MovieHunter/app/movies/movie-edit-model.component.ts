@@ -49,9 +49,9 @@ export class MovieEditModelComponent implements OnInit {
     onGetMovie(movie: IMovie) {
         this.movie = movie;
         if (this.movie.movieId === 0) {
-            this.pageTitle = 'Add Movie';
+            this.pageTitle = 'Add Movie (Model-driven)';
         } else {
-            this.pageTitle = `Edit Movie: ${this.movie.title}`;
+            this.pageTitle = `Edit Movie (Model-driven): ${this.movie.title}`;
         }
 
     }
