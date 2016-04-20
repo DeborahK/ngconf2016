@@ -41,7 +41,7 @@
                 <tbody>
                     <tr *ngFor='#movie of movies| movieFilter:listFilter'>
                         <td>
-                            <img [hidden]="!showImage || !movie.imageurl" 
+                            <img *ngIf="showImage && movie.imageurl" 
                                  [style.width.px]="50" 
                                  [style.margin.px]="2" 
                                  [src]="movie.imageurl" 

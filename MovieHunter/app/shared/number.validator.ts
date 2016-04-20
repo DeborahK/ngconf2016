@@ -10,7 +10,7 @@ interface IValidationResult {
 // Return type is a function that takes in a control
 // and returns a key/value pair
 interface IValidationFunction {
-    (c: Control): IValidationResult
+    (c: Control): IValidationResult;
 }
 
 export class NumberValidator {
