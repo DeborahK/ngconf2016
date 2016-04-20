@@ -7,6 +7,10 @@
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
 
         <div class="row">
+            <div class="col-md-2">Description: </div>
+            <div class="col-md-10">{{ movie?.description }}</div>
+        </div>
+        <div class="row">
             <div class="col-md-2">Director: </div>
             <div class="col-md-10">{{ movie?.director }}</div>
         </div>
