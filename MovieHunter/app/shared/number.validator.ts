@@ -1,14 +1,22 @@
-import { Control, AbstractControl } from 'angular2/common';
+import { Control } from 'angular2/common';
 
-interface ValidationResult {
+// For simple validation with no parameters.
+// Return type is a key/value pair
+interface IValidationResult {
     [key: string]: boolean;
+}
+
+// For validation with parameters.
+// Return type is a function that takes in a control
+// and returns a key/value pair
+interface IValidationFunction {
+    (c: Control): IValidationResult
 }
 
 export class NumberValidator {
 
-    static range(min: number, max: number): { (c: AbstractControl): { [key: string]: any }; } {
-        return (control: AbstractControl): { [key: string]: any } => {
-            // Don't validate if it is empty
+    static range(min: number, max: number): IValidationFunction {
+        return (control: Control): { [key: string]: boolean } => {
             if (control.value && (isNaN(control.value) || control.value < 1 || control.value > 5)) {
                 return { 'range': true };
             }
@@ -16,12 +24,10 @@ export class NumberValidator {
         };
     }
 
-    static rangeHardCoded(control: Control): ValidationResult {
-        // Don't validate if it is empty
+    static rangeHardCoded(control: Control): IValidationResult {
         if (control.value && (isNaN(control.value) || control.value < 1 || control.value > 5)) {
             return { 'range': true };
         }
-
         return null;
     }
 }
