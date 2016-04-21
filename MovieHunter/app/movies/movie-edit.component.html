@@ -4,7 +4,7 @@
     </div>
 
     <div class="panel-body" *ngIf="movie">
-        <form class="form-horizontal" [ngFormModel]="editForm" (submit)="saveMovie()">
+        <form class="form-horizontal" [ngFormModel]="editForm" (ngSubmit)="saveMovie()">
             <fieldset>
                 <div class="form-group" [ngClass]="{'has-error': formError.title }">
                     <label class="col-md-2 control-label" for="inputMovieTitle">Movie Title</label>
