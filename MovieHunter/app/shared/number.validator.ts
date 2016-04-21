@@ -17,7 +17,7 @@ export class NumberValidator {
 
     static range(min: number, max: number): IValidationFunction {
         return (control: Control): { [key: string]: boolean } => {
-            if (control.value && (isNaN(control.value) || control.value < 1 || control.value > 5)) {
+            if (control.value && (isNaN(control.value) || control.value < min || control.value > max)) {
                 return { 'range': true };
             }
             return null;
