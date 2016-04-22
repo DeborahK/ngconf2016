@@ -14,7 +14,7 @@ export class MovieEditComponent implements OnInit {
     pageTitle: string = 'Edit Movie';
     editForm: ControlGroup;
     formError: { [id: string]: string };
-    private validationMessages: { [id: string]: { [id: string]: string } };
+    private _validationMessages: { [id: string]: { [id: string]: string } };
     movie: IMovie;
     errorMessage: string;
 
@@ -30,7 +30,7 @@ export class MovieEditComponent implements OnInit {
             'description': ''
         };
 
-        this.validationMessages = {
+        this._validationMessages = {
             'title': {
                 'required': 'Movie title is required',
                 'minlength': 'Movie title must be at least three characters.',
@@ -84,6 +84,11 @@ export class MovieEditComponent implements OnInit {
         });
 
         this.editForm.valueChanges
+            .map(value => {
+                value.title = value.title.toUpperCase();
+                console.log(value.title);
+                return value;
+            })
             .subscribe(data => this.onValueChanged(data));
         // this.editForm.valueChanges
         //         .debounceTime(500)
@@ -99,7 +104,7 @@ export class MovieEditComponent implements OnInit {
                 if (hasError) {
                     for (let key in this.editForm.controls[field].errors) {
                         if (this.editForm.controls[field].errors.hasOwnProperty(key)) {
-                            this.formError[field] += this.validationMessages[field][key] + ' ';
+                            this.formError[field] += this._validationMessages[field][key] + ' ';
                         }
                     }
                 }
