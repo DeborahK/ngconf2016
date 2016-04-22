@@ -1,5 +1,5 @@
 import { Component, OnInit } from 'angular2/core';
-import { FormBuilder, ControlGroup, Validators } from 'angular2/common';
+import { FormBuilder, ControlGroup, Control, Validators } from 'angular2/common';
 import { ROUTER_DIRECTIVES, RouteParams } from 'angular2/router';
 
 import { IMovie } from './movie';
@@ -13,6 +13,7 @@ import { NumberValidator } from '../shared/number.validator';
 export class MovieEditComponent implements OnInit {
     pageTitle: string = 'Edit Movie';
     editForm: ControlGroup;
+    titleControl: Control;
     formError: { [id: string]: string };
     private _validationMessages: { [id: string]: { [id: string]: string } };
     movie: IMovie;
@@ -68,11 +69,11 @@ export class MovieEditComponent implements OnInit {
             this.pageTitle = `Edit Movie: ${this.movie.title}`;
         }
 
+        this.titleControl = new Control(this.movie.title, Validators.compose([Validators.required,
+                                                                Validators.minLength(3),
+                                                                Validators.maxLength(50)]));
         this.editForm = this._fb.group({
-            'title': [this.movie.title,
-                Validators.compose([Validators.required,
-                    Validators.minLength(3),
-                    Validators.maxLength(50)])],
+            'title': this.titleControl,
             'director': [this.movie.director,
                 Validators.compose([Validators.required,
                     Validators.minLength(5),
@@ -80,11 +81,12 @@ export class MovieEditComponent implements OnInit {
             'starRating': [this.movie.starRating,
                 NumberValidator.range(1, 5)],
             'description': [this.movie.description]
-
         });
 
         this.editForm.valueChanges
             .map(value => {
+                // Causes infinite loop
+                //this.titleControl.updateValue(value.title.toUpperCase());
                 value.title = value.title.toUpperCase();
                 console.log(value.title);
                 return value;
