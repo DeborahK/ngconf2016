@@ -4,7 +4,7 @@
   "description": "Movie Hunter Application",
   "author": "Deborah Kurata",
   "scripts": {
-    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
+    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lint": "tslint ./app/**/*.ts -t verbose",
