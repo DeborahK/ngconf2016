@@ -86,7 +86,7 @@ export class MovieEditComponent implements OnInit {
         this.editForm.valueChanges
             .map(value => {
                 // Causes infinite loop
-                //this.titleControl.updateValue(value.title.toUpperCase());
+                // this.titleControl.updateValue(value.title.toUpperCase());
                 value.title = value.title.toUpperCase();
                 console.log(value.title);
                 return value;
