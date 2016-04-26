@@ -13,7 +13,7 @@ import { StarComponent } from '../shared/star.component';
     pipes: [MovieFilterPipe]
 })
 export class MovieListComponent implements OnInit {
-    pageTitle: string = 'InStep Movie List';
+    pageTitle: string = 'Movie List';
     listFilter: string = '';
     showImage: boolean = false;
     movies: IMovie[];
