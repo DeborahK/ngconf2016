@@ -3,7 +3,7 @@
     "files.exclude": {
         "**/.git": true,
         "**/.DS_Store": true,
-        "**/*.js": true,
+        "*/app/*.js": true,
         "**/*.map": true
     },
     // Adjust the zoom level of the window. The original size is 0 and each increment above or below represents zooming 20% larger or smaller.

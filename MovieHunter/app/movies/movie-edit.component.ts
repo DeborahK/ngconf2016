@@ -1,6 +1,6 @@
-import { Component, OnInit } from 'angular2/core';
-import { FormBuilder, ControlGroup, Control, Validators } from 'angular2/common';
-import { ROUTER_DIRECTIVES, RouteParams } from 'angular2/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, ControlGroup, Control, Validators } from '@angular/common';
+import { ROUTER_DIRECTIVES, RouteParams } from '@angular/router';
 
 import { IMovie } from './movie';
 import { MovieService } from './movie.service';

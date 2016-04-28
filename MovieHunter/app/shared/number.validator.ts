@@ -1,4 +1,4 @@
-import { Control } from 'angular2/common';
+import { Control } from '@angular/common';
 
 // For simple validation with no parameters.
 // Return type is a key/value pair

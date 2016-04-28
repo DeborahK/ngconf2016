@@ -1,6 +1,6 @@
-import { Component, OnInit } from 'angular2/core';
-import { FormBuilder, ControlGroup, Control, Validators } from 'angular2/common';
-import { ROUTER_DIRECTIVES, Router, RouteParams } from 'angular2/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, ControlGroup, Control, Validators } from '@angular/common';
+import { ROUTER_DIRECTIVES, Router, RouteParams } from '@angular/router';
 
 import { IMovie } from './movie';
 import { MovieService } from './movie.service';
@@ -42,8 +42,8 @@ export class MovieEditModelComponent implements OnInit {
     getMovie(id: number) {
         this._movieService.getMovie(id)
             .subscribe(
-            movie => this.onGetMovie(movie),
-            error => this.errorMessage = <any>error);
+            (movie: IMovie) => this.onGetMovie(movie),
+            (error: any) => this.errorMessage = <any>error);
     }
 
     onGetMovie(movie: IMovie) {
