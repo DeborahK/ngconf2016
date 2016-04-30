@@ -39,8 +39,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!--<tr *ngFor='#movie of movies| movieFilter:listFilter'>-->
-                    <tr *ngFor='#movie of movies'>
+                    <tr *ngFor='let movie of movies| movieFilter:listFilter'>
                         <td>
                             <img *ngIf="showImage && movie.imageurl" 
                                  [style.width.px]="50" 
