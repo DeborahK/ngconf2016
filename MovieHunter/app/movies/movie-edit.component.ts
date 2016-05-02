@@ -88,7 +88,6 @@ export class MovieEditComponent implements OnInit {
                 // Causes infinite loop
                 // this.titleControl.updateValue(value.title.toUpperCase());
                 value.title = value.title.toUpperCase();
-                console.log(value.title);
                 return value;
             })
             .subscribe(data => this.onValueChanged(data));
