@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HTTP_PROVIDERS } from '@angular/http';
-import { Routes, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
+import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 
 import { WelcomeComponent } from './home/welcome.component';
 import { MovieListComponent } from './movies/movie-list.component';
@@ -37,19 +37,13 @@ import { MovieService } from './movies/movie.service';
     ]
 })
 @Routes([
-    { path: '/welcome', component: WelcomeComponent },
+    { path: '/', component: WelcomeComponent },
     { path: '/movies', component: MovieListComponent },
     { path: '/movie/:id', component: MovieDetailComponent },
     { path: '/movieEdit/:id', component: MovieEditComponent },
     { path: '/movieEditTemplate/:id', component: MovieEditTemplateComponent },
     { path: '/movieEditModel/:id', component: MovieEditModelComponent }
 ])
-export class AppComponent implements OnInit {
+export class AppComponent {
     pageTitle: string = 'InStep Movie Hunter';
-
-    constructor(private router: Router) {};
-
-    ngOnInit() {
-        this.router.navigate(['/welcome']);
-    }
 }
