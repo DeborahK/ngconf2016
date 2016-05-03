@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ControlGroup } from '@angular/common';
-import { ROUTER_DIRECTIVES, Router, RouteParams } from '@angular/router';
+import { ROUTER_DIRECTIVES, OnActivate, RouteSegment } from '@angular/router';
 
 import { IMovie } from './movie';
 import { MovieService } from './movie.service';
@@ -9,18 +9,16 @@ import { MovieService } from './movie.service';
     templateUrl: 'app/movies/movie-edit-template.component.html',
     directives: [ROUTER_DIRECTIVES]
 })
-export class MovieEditTemplateComponent implements OnInit {
+export class MovieEditTemplateComponent implements OnActivate {
     pageTitle: string = 'Edit Movie';
     movie: IMovie;
     errorMessage: string;
 
-    constructor(private _movieService: MovieService,
-        private _router: Router,
-        private _routeParams: RouteParams) {
+    constructor(private _movieService: MovieService) {
     }
 
-    ngOnInit() {
-        let id = +this._routeParams.get('id');
+    routerOnActivate(curr: RouteSegment): void {
+        let id = +curr.getParam('id');
         this.getMovie(id);
     }
 

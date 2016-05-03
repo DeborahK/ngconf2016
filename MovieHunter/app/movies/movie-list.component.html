@@ -47,7 +47,7 @@
                                  [src]="movie.imageurl" 
                                  [title]="movie.title">
                         </td>
-                        <td><a [routerLink]="['MovieDetail', { id: movie.movieId }]">{{ movie.title }}</a></td>
+                        <td><a [routerLink]="['/movie', movie.movieId]">{{ movie.title }}</a></td>
                         <td>{{ movie.director }}</td>
                         <td>{{ convertToDate(movie.releaseDate) | date}}</td>
                         <td>{{ movie.mpaa | uppercase}}</td>
@@ -58,7 +58,7 @@
                         <td>{{ movie.approvalRating | percent: '1.0-0'}}</td>
                         <td>
                             <a class="btn btn-primary" 
-                               [routerLink]="['MovieEdit', { id: movie.movieId }]">
+                               [routerLink]="['/movieEdit', movie.movieId]">
                                 Edit
                             </a>
                         </td>

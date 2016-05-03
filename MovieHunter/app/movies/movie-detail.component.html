@@ -43,7 +43,7 @@
         <a class="btn btn-default" (click)="onBack()" style="width:80px">
             <i class="glyphicon glyphicon-chevron-left"></i> Back
         </a>
-        <a class="btn btn-primary" style="width:80px;margin-left:10px" [routerLink]="['MovieEdit', { id: movie.movieId }]">
+        <a class="btn btn-primary" style="width:80px;margin-left:10px" [routerLink]="['/movieEdit', movie.movieId]">
             Edit
         </a>
     </div>

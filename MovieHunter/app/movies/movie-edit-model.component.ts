@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, ControlGroup, Control, Validators } from '@angular/common';
-import { ROUTER_DIRECTIVES, Router, RouteParams } from '@angular/router';
+import { ROUTER_DIRECTIVES, OnActivate, RouteSegment } from '@angular/router';
 
 import { IMovie } from './movie';
 import { MovieService } from './movie.service';
@@ -9,7 +9,7 @@ import { MovieService } from './movie.service';
     templateUrl: 'app/movies/movie-edit-model.component.html',
     directives: [ROUTER_DIRECTIVES]
 })
-export class MovieEditModelComponent implements OnInit {
+export class MovieEditModelComponent implements OnActivate {
     pageTitle: string = 'Edit Movie';
     editForm: ControlGroup;
     titleControl: Control;
@@ -18,9 +18,7 @@ export class MovieEditModelComponent implements OnInit {
     errorMessage: string;
 
     constructor(private _fb: FormBuilder,
-        private _movieService: MovieService,
-        private _router: Router,
-        private _routeParams: RouteParams) {
+        private _movieService: MovieService) {
 
         this.titleControl = new Control('', Validators.compose([Validators.required,
                                                                 Validators.minLength(3),
@@ -34,8 +32,8 @@ export class MovieEditModelComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
-        let id = +this._routeParams.get('id');
+    routerOnActivate(curr: RouteSegment): void {
+        let id = +curr.getParam('id');
         this.getMovie(id);
     }
 

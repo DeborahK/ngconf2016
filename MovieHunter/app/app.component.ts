@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HTTP_PROVIDERS } from '@angular/http';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
+import { Routes, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 
 import { WelcomeComponent } from './home/welcome.component';
 import { MovieListComponent } from './movies/movie-list.component';
@@ -18,9 +18,9 @@ import { MovieService } from './movies/movie.service';
             <div class="container-fluid">
                 <a class="navbar-brand">{{pageTitle}}</a>
                 <ul class="nav navbar-nav">
-                    <li><a [routerLink]="['Welcome']">Home</a></li>
-                    <li><a [routerLink]="['Movies']">Movie List</a></li>
-                    <li><a [routerLink]="['MovieEdit', {id: 0}]">Add Movie</a></li>
+                    <li><a [routerLink]="['/welcome']">Home</a></li>
+                    <li><a [routerLink]="['/movies']">Movie List</a></li>
+                    <li><a [routerLink]="['/movieEdit', 0]">Add Movie</a></li>
                 </ul>
             </div>
         </nav>
@@ -36,14 +36,20 @@ import { MovieService } from './movies/movie.service';
         MovieService
     ]
 })
-@RouteConfig([
-    { path: '/welcome', name: 'Welcome', component: WelcomeComponent, useAsDefault: true },
-    { path: '/movies', name: 'Movies', component: MovieListComponent },
-    { path: '/movie/:id', name: 'MovieDetail', component: MovieDetailComponent },
-    { path: '/movieEdit/:id', name: 'MovieEdit', component: MovieEditComponent },
-    { path: '/movieEditTemplate/:id', name: 'MovieEditTemplate', component: MovieEditTemplateComponent },
-    { path: '/movieEditModel/:id', name: 'MovieEditModel', component: MovieEditModelComponent }
+@Routes([
+    { path: '/welcome', component: WelcomeComponent },
+    { path: '/movies', component: MovieListComponent },
+    { path: '/movie/:id', component: MovieDetailComponent },
+    { path: '/movieEdit/:id', component: MovieEditComponent },
+    { path: '/movieEditTemplate/:id', component: MovieEditTemplateComponent },
+    { path: '/movieEditModel/:id', component: MovieEditModelComponent }
 ])
-export class AppComponent {
+export class AppComponent implements OnInit {
     pageTitle: string = 'InStep Movie Hunter';
+
+    constructor(private router: Router) {};
+
+    ngOnInit() {
+        this.router.navigate(['/welcome']);
+    }
 }
