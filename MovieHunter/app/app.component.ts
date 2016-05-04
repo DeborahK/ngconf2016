@@ -38,6 +38,7 @@ import { MovieService } from './movies/movie.service';
 })
 @Routes([
     { path: '/', component: WelcomeComponent },
+    { path: '/welcome', component: WelcomeComponent },
     { path: '/movies', component: MovieListComponent },
     { path: '/movie/:id', component: MovieDetailComponent },
     { path: '/movieEdit/:id', component: MovieEditComponent },
