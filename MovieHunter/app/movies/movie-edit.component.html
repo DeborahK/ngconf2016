@@ -1,68 +1,74 @@
+<style>
+    .ng-invalid {
+        color: red;
+        border: 2px dashed red;
+    }
+</style>
+
 <div class="panel panel-primary">
     <div class="panel-heading">
-        {{pageTitle}}
+        {{pageTitle$ | async}}
     </div>
 
-    <div class="panel-body" *ngIf="movie">
+    <div class="panel-body" *ngIf="movie$ | async">
         <form class="form-horizontal" [ngFormModel]="editForm" (ngSubmit)="saveMovie()">
             <fieldset>
-                <div class="form-group" [ngClass]="{'has-error': formError.title }">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="inputMovieTitle">Movie Title</label>
 
                     <div class="col-md-8">
-                        <input class="form-control" 
-                                id="inputMovieTitle" 
-                                type="text" 
-                                placeholder="Title (required)" 
-                                ngControl="title" />
-                        <span class="help-block" *ngIf="formError.title">
-                                {{formError.title}}
-                        </span>
+                        <input class="form-control"
+                               id="inputMovieTitle"
+                               type="text"
+                               placeholder="Title (required)"
+                               ngControl="title"
+                        />
+                        <help-block [message]="titleMessage$ | async"></help-block>
                     </div>
                 </div>
-                
-                <div class="form-group" [ngClass]="{'has-error': formError.director }">
+
+
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="inputDirector">Director</label>
 
                     <div class="col-md-8">
-                        <input class="form-control" 
-                                id="inputDirector" 
-                                type="text" 
-                                placeholder="Director (required)" 
-                                ngControl="director" />
-                        <span class="help-block" *ngIf="formError.director">
-                                {{formError.director}}
-                        </span>
+                        <input class="form-control"
+                               id="inputDirector"
+                               type="text"
+                               placeholder="Director (required)"
+                               ngControl="director"
+                        />
+                        <help-block [message]="directorMessage$ | async"></help-block>
+
                     </div>
                 </div>
-                
-                <div class="form-group" [ngClass]="{'has-error': formError.starRating}">
+
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="inputStarRating">Star Rating (1-5)</label>
 
                     <div class="col-md-8">
-                        <input class="form-control" 
-                                id="inputStarRating" 
-                                type="text" 
-                                placeholder="Rating" 
-                                ngControl="starRating" />
-                        <span class="help-block" *ngIf="formError.starRating">
-                                {{formError.starRating}}
-                        </span>
+                        <input class="form-control"
+                               id="inputStarRating"
+                               type="text"
+                               placeholder="Rating"
+                               ngControl="starRating"
+                        />
+                        <help-block [message]="starRatingMessage$ | async"></help-block>
+
                     </div>
                 </div>
-                
-                <div class="form-group" [ngClass]="{'has-error': formError.description}">
+
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="inputMovieDescription">Description</label>
 
                     <div class="col-md-8">
-                        <textarea class="form-control" 
-                                id="inputMovieDescription" 
-                                placeholder="Description"
-                                rows=3
-                                ngControl="description"></textarea>
-                        <span class="help-block" *ngIf="formError.description">
-                                {{ formError.description}}
-                        </span>
+                        <textarea class="form-control"
+                                  id="inputMovieDescription"
+                                  placeholder="Description"
+                                  rows=3
+                                  ngControl="description"
+                        ></textarea>
+                        <help-block [message]="descriptionMessage$ | async"></help-block>
                     </div>
                 </div>
 
