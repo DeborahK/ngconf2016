@@ -1,17 +1,16 @@
-<!--This class is added dynamically when a form is invalid-->
 <style>
     .ng-invalid {
         color: red;
-        border: 20px dashed red;
+        border: 2px dashed red;
     }
 </style>
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-        {{pageTitle}}
+        {{pageTitle$ | async}}
     </div>
 
-    <div class="panel-body" *ngIf="movie">
+    <div class="panel-body" *ngIf="movie$ | async">
         <form class="form-horizontal" [ngFormModel]="editForm" (ngSubmit)="saveMovie()">
             <fieldset>
                 <div class="form-group">
@@ -23,24 +22,11 @@
                                type="text"
                                placeholder="Title (required)"
                                ngControl="title"
-                               #title="ngForm"
-                               minlength="3"
-                               maxlength="50"
-                               required
                         />
-                        <span class="help-block" *ngIf="title.errors?.required">
-                                Movie title is required
-                        </span>
-                        <span class="help-block" *ngIf="title.errors?.minlength">
-                                Movie title must be at least three characters.
-                        </span>
-                        <span class="help-block" *ngIf="title.errors?.maxlength">
-                                Movie title cannot exceed 50 characters.
-                        </span>
-
-
+                        <help-block [message]="titleMessage$ | async"></help-block>
                     </div>
                 </div>
+
 
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="inputDirector">Director</label>
@@ -51,20 +37,9 @@
                                type="text"
                                placeholder="Director (required)"
                                ngControl="director"
-                               #director="ngForm"
-                               minlength="3"
-                               maxlength="50"
-                               required
                         />
-                        <span class="help-block" *ngIf="director.errors?.required">
-                            Director is required
-                        </span>
-                        <span class="help-block" *ngIf="director.errors?.minlength">
-                            Director must be at least 5 characters.
-                        </span>
-                        <span class="help-block" *ngIf="director.errors?.maxlength">
-                            Director cannot exceed 50 characters.
-                        </span>
+                        <help-block [message]="directorMessage$ | async"></help-block>
+
                     </div>
                 </div>
 
@@ -77,22 +52,9 @@
                                type="text"
                                placeholder="Rating"
                                ngControl="starRating"
-                               #starRating="ngForm"
-                               range="1,5"
-                               required
                         />
-                        <span class="help-block" *ngIf="starRating.errors?.required">
-                            Rating is required.
-                        </span>
-                        <span class="help-block" *ngIf="starRating.errors?.min">
-                            Rating must be greater than 0.
-                        </span>
-                        <span class="help-block" *ngIf="starRating.errors?.max">
-                            Rating must be less than 5.
-                        </span>
-                        <span class="help-block" *ngIf="starRating.errors?.NaN">
-                            Rating must be a number.
-                        </span>
+                        <help-block [message]="starRatingMessage$ | async"></help-block>
+
                     </div>
                 </div>
 
@@ -105,12 +67,8 @@
                                   placeholder="Description"
                                   rows=3
                                   ngControl="description"
-                                  #description="ngForm"
-                                  required
                         ></textarea>
-                        <span class="help-block" *ngIf="description.errors?.required">
-                            A description is required.
-                        </span>
+                        <help-block [message]="descriptionMessage$ | async"></help-block>
                     </div>
                 </div>
 

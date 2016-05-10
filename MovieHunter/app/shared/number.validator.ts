@@ -3,7 +3,7 @@ import { Control } from '@angular/common';
 
 export class NumberValidator {
 
-    static range(min, max){
+    static range(min:number, max:number){
         return (control: Control): { [key: string]: boolean } => {
             if (control.value < min ) {
                 return { 'min': true };

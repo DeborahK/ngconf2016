@@ -13,9 +13,9 @@ export const RANGE_VALIDATOR = {
     providers: [RANGE_VALIDATOR]
 })
 export class RangeValidator implements Validator {
-    private _validator;
+    private _validator:(c:AbstractControl)=> any;
 
-    constructor(@Attribute('range') range) {
+    constructor(@Attribute('range') range:string) {
         const [min, max] = range.split(',').map(v => parseInt(v));
         this._validator = NumberValidator.range(min, max);
     }
