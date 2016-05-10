@@ -21,7 +21,8 @@ export class MovieService {
         return this._http.get(this._moviesUrl)
             .map(res => this.handleMap(res, id))
             .do(data => console.log('Data: ' + JSON.stringify(data)))
-            .catch(this.handleError);
+            .catch(this.handleError)
+            .share();
     }
 
     private handleError(error: Response) {
